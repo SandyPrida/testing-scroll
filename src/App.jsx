@@ -39,7 +39,7 @@ function App() {
             // bounds="parent"
             axis="y"
             onStart={handleOnStart}
-            onDrag={handleOnStart}
+            onDrag={() => false}
             onStop={handleOnStop}
           >
             <div className="w-full h-full overflow-scroll" ref={vidRef}>

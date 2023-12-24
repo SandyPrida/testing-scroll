@@ -65,7 +65,7 @@ function App() {
                             {videos.map((video, index) => (
                                 <div key={index} className={`h-full ${video.bgColor}`}>
                                     <video className="w-full h-full" controls muted autoPlay>
-                                        <source src={video.src} type="video/mp4" />
+                                        <source src={video.src} type="video/mp4" controls muted autoPlay />
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>

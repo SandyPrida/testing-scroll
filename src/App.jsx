@@ -59,7 +59,7 @@ function App() {
                         axis="y"
                         onStart={isDragging ? handleOnStart : ""}
                         onDrag={() => false}
-                        onStop={isDragging ? handleOnStop : ""}
+                        onStop={handleOnStop}
                     >
                         <div className="w-full h-full overflow-scroll" ref={vidRef}>
                             {videos.map((video, index) => (

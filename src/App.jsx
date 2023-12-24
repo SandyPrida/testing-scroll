@@ -64,7 +64,7 @@ function App() {
                         <div className="w-full h-full overflow-scroll" ref={vidRef}>
                             {videos.map((video, index) => (
                                 <div key={index} className={`h-full ${video.bgColor}`}>
-                                    <video className="w-full h-full" src={video.src} controls muted autoPlay></video>
+                                    <video className="w-full h-full" controls={false} muted autoPlay></video>
                                 </div>
                             ))}
                         </div>

@@ -28,14 +28,12 @@ function App() {
 
         if (deltaY > 0) {
             // Scroll ke bawah
-            setIsDragging(false);
             const scrollTo = vidRef.current.scrollTop - scrollIncrement;
             vidRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
             setIsDragging(false);
             // console.log(vidRef.current.scrollTop, " - ", scrollIncrement, " = ", scrollTo);
         } else if (deltaY < 0) {
             // Scroll ke atas
-            setIsDragging(false);
             const scrollTo = vidRef.current.scrollTop + scrollIncrement;
             vidRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
             setIsDragging(false);
@@ -46,7 +44,7 @@ function App() {
     useEffect(() => {
         const interval = setInterval(() => {
             setIsDragging(true);
-        }, 1000);
+        }, 1500);
 
         // Membersihkan interval saat komponen tidak lagi ter-render
         return () => clearInterval(interval);

@@ -11,6 +11,11 @@ function App() {
     const vidRef = useRef(null);
     const [startY, setStartY] = useState(0);
     const [isDragging, setIsDragging] = useState(true);
+    const videos = [
+        { src: vid1, bgColor: "bg-blue-500" },
+        { src: vid2, bgColor: "bg-red-500" },
+        { src: vid3, bgColor: "bg-green-500" },
+    ];
 
     const handleOnStart = (e, data) => {
         setStartY(data.y);
@@ -54,27 +59,17 @@ function App() {
                         axis="y"
                         onStart={isDragging ? handleOnStart : ""}
                         onDrag={() => false}
-                        onStop={handleOnStop}
+                        onStop={isDragging ? handleOnStop : ""}
                     >
                         <div className="w-full h-full overflow-scroll" ref={vidRef}>
-                            <div className="h-full bg-blue-500">
-                                <video controls className="w-full h-full">
-                                    <source src={vid1} type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
-                            </div>
-                            <div className="h-full bg-red-500">
-                            <video controls className="w-full h-full">
-                                    <source src={vid2} type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
-                            </div>
-                            <div className="h-full bg-green-500">
-                            <video controls className="w-full h-full">
-                                    <source src={vid3} type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
-                            </div>
+                            {videos.map((video, index) => (
+                                <div key={index} className={`h-full ${video.bgColor}`}>
+                                    <video controls className="w-full h-full">
+                                        <source src={video.src} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            ))}
                         </div>
                     </Draggable>
                 </div>

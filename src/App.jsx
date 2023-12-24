@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -7,6 +7,7 @@ import Draggable from "react-draggable";
 function App() {
   const vidRef = useRef(null);
   const [startY, setStartY] = useState(0);
+  const [isDragging, setIsDragging] = useState(true);
 
   const handleOnStart = (e, data) => {
     setStartY(data.y);
@@ -22,14 +23,25 @@ function App() {
       // Scroll ke bawah
       const scrollTo = vidRef.current.scrollTop - scrollIncrement;
       vidRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+      setIsDragging(false)
       // console.log(vidRef.current.scrollTop, " - ", scrollIncrement, " = ", scrollTo);
     } else if (deltaY < 0) {
       // Scroll ke atas
       const scrollTo = vidRef.current.scrollTop + scrollIncrement;
       vidRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+      setIsDragging(false)
       // console.log(vidRef.current.scrollTop, " + ", scrollIncrement, " = ", scrollTo);
     }
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsDragging(true);
+    }, 900);
+
+    // Membersihkan interval saat komponen tidak lagi ter-render
+    return () => clearInterval(interval);
+  }, []); 
 
   return (
     <>
@@ -38,7 +50,7 @@ function App() {
           <Draggable 
             // bounds="parent"
             axis="y"
-            onStart={handleOnStart}
+            onStart={isDragging ? handleOnStart : ''}
             onDrag={() => false}
             onStop={handleOnStop}
           >

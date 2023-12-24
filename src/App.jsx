@@ -19,7 +19,6 @@ function App() {
 
     const handleOnStart = (e, data) => {
         setStartY(data.y);
-        setIsDragging(false);
         // console.log(data);
     };
 

@@ -3,67 +3,84 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import Draggable from "react-draggable";
+import vid1 from "./assets/vid1.mp4";
+import vid2 from "./assets/vid2.mp4";
+import vid3 from "./assets/vid3.mp4";
 
 function App() {
-  const vidRef = useRef(null);
-  const [startY, setStartY] = useState(0);
-  const [isDragging, setIsDragging] = useState(true);
+    const vidRef = useRef(null);
+    const [startY, setStartY] = useState(0);
+    const [isDragging, setIsDragging] = useState(true);
 
-  const handleOnStart = (e, data) => {
-    setStartY(data.y);
-    // console.log(data);
-  };
+    const handleOnStart = (e, data) => {
+        setStartY(data.y);
+        // console.log(data);
+    };
 
-  const handleOnStop = (e, data) => {
-    const deltaY = data.y - startY;
-    const scrollIncrement = vidRef.current.clientHeight; // Atur nilai scroll yang diinginkan di sini
+    const handleOnStop = (e, data) => {
+        const deltaY = data.y - startY;
+        const scrollIncrement = vidRef.current.clientHeight; // Atur nilai scroll yang diinginkan di sini
 
-    
-    if (deltaY > 0) {
-      // Scroll ke bawah
-      const scrollTo = vidRef.current.scrollTop - scrollIncrement;
-      vidRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
-      setIsDragging(false)
-      // console.log(vidRef.current.scrollTop, " - ", scrollIncrement, " = ", scrollTo);
-    } else if (deltaY < 0) {
-      // Scroll ke atas
-      const scrollTo = vidRef.current.scrollTop + scrollIncrement;
-      vidRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
-      setIsDragging(false)
-      // console.log(vidRef.current.scrollTop, " + ", scrollIncrement, " = ", scrollTo);
-    }
-  };
+        if (deltaY > 0) {
+            // Scroll ke bawah
+            const scrollTo = vidRef.current.scrollTop - scrollIncrement;
+            vidRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+            setIsDragging(false);
+            // console.log(vidRef.current.scrollTop, " - ", scrollIncrement, " = ", scrollTo);
+        } else if (deltaY < 0) {
+            // Scroll ke atas
+            const scrollTo = vidRef.current.scrollTop + scrollIncrement;
+            vidRef.current.scrollTo({ top: scrollTo, behavior: "smooth" });
+            setIsDragging(false);
+            // console.log(vidRef.current.scrollTop, " + ", scrollIncrement, " = ", scrollTo);
+        }
+    };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsDragging(true);
-    }, 900);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsDragging(true);
+        }, 1000);
 
-    // Membersihkan interval saat komponen tidak lagi ter-render
-    return () => clearInterval(interval);
-  }, []); 
+        // Membersihkan interval saat komponen tidak lagi ter-render
+        return () => clearInterval(interval);
+    }, []);
 
-  return (
-    <>
-      <div className="w-full flex flex-col items-center justify-center h-[100dvh] bg-black max-w-md m-auto overflow-hidden">
-        <div className="w-full h-full relative overflow-auto">
-          <Draggable 
-            // bounds="parent"
-            axis="y"
-            onStart={isDragging ? handleOnStart : ''}
-            onDrag={() => false}
-            onStop={handleOnStop}
-          >
-            <div className="w-full h-full overflow-scroll" ref={vidRef}>
-              <div className="h-full bg-blue-500"></div>
-              <div className="h-full bg-red-500"></div>
-              <div className="h-full bg-green-500"></div>
+    return (
+        <>
+            <div className="w-full flex flex-col items-center justify-center h-[100dvh] bg-black max-w-md m-auto overflow-hidden">
+                <div className="w-full h-full relative overflow-auto">
+                    <Draggable
+                        // bounds="parent"
+                        axis="y"
+                        onStart={isDragging ? handleOnStart : ""}
+                        onDrag={() => false}
+                        onStop={handleOnStop}
+                    >
+                        <div className="w-full h-full overflow-scroll" ref={vidRef}>
+                            <div className="h-full bg-blue-500">
+                                <video controls className="w-full h-full">
+                                    <source src={vid1} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div className="h-full bg-red-500">
+                            <video controls className="w-full h-full">
+                                    <source src={vid2} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div className="h-full bg-green-500">
+                            <video controls className="w-full h-full">
+                                    <source src={vid3} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </div>
+                    </Draggable>
+                </div>
             </div>
-          </Draggable>
-        </div>
-      </div>
-    </>
-  );
+        </>
+    );
 }
 
 export default App;

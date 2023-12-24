@@ -44,7 +44,7 @@ function App() {
     useEffect(() => {
         const interval = setInterval(() => {
             setIsDragging(true);
-        }, 1000);
+        }, 0);
 
         // Membersihkan interval saat komponen tidak lagi ter-render
         return () => clearInterval(interval);

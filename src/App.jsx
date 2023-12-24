@@ -64,10 +64,7 @@ function App() {
                         <div className="w-full h-full overflow-scroll" ref={vidRef}>
                             {videos.map((video, index) => (
                                 <div key={index} className={`h-full ${video.bgColor}`}>
-                                    <video className="w-full h-full" controls muted autoPlay>
-                                        <source src={video.src} type="video/mp4" controls muted autoPlay />
-                                        Your browser does not support the video tag.
-                                    </video>
+                                    <video className="w-full h-full" src={video.src} controls muted autoPlay></video>
                                 </div>
                             ))}
                         </div>
